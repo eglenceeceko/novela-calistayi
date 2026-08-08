@@ -29,6 +29,13 @@ export default function Home() {
     return () => clearInterval(timer);
   }, []);
 
+  useEffect(() => {
+    document.body.style.overflow = menuOpen ? 'hidden' : '';
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [menuOpen]);
+
   const navLinks = [
     { name: 'Anasayfa', href: '/' },
     { name: 'Hakkımızda', href: '/hakkimizda' },
@@ -560,6 +567,92 @@ export default function Home() {
           </div>
         </div>
       </footer>
+
+      {/* Ek Responsive İnce Ayarlar */}
+      <style jsx global>{`
+        @media (max-width: 900px) {
+          .desktop-menu {
+            display: none !important;
+          }
+
+          .desktop-btn {
+            display: none !important;
+          }
+
+          .hamburger-icon {
+            display: flex !important;
+          }
+
+          /* Mobil navbar */
+          nav {
+            padding: 15px 20px !important;
+          }
+
+          /* Mobil hero */
+          header {
+            min-height: auto !important;
+            padding: 55px 20px !important;
+            justify-content: center !important;
+          }
+
+          header > div:nth-of-type(1) {
+            max-width: 100% !important;
+            text-align: center !important;
+          }
+
+          header > div:nth-of-type(1) > div {
+            justify-content: center !important;
+          }
+
+          header > div:nth-of-type(2) {
+            max-width: 100% !important;
+          }
+
+          /* Mobil sayaç */
+          header h1 {
+            margin-bottom: 25px !important;
+          }
+        }
+
+        @media (max-width: 600px) {
+          /* Daha küçük telefonlar */
+          header {
+            padding: 45px 15px !important;
+            gap: 30px !important;
+          }
+
+          header h1 {
+            font-size: clamp(2rem, 10vw, 2.8rem) !important;
+          }
+
+          header > div:nth-of-type(1) > div {
+            justify-content: center !important;
+            gap: 10px !important;
+          }
+
+          header > div:nth-of-type(1) > div a,
+          header > div:nth-of-type(1) > div button {
+            width: 100% !important;
+            text-align: center !important;
+          }
+
+          header > div:nth-of-type(2) {
+            padding: 20px !important;
+            width: 100% !important;
+          }
+
+          section {
+            padding-left: 15px !important;
+            padding-right: 15px !important;
+          }
+
+          footer {
+            padding-left: 15px !important;
+            padding-right: 15px !important;
+          }
+        }
+
+      `}</style>
 
       {/* Medya Sorguları */}
       <style jsx global>{`
