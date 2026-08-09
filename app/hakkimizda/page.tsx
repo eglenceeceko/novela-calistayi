@@ -24,6 +24,15 @@ export default function Hakkimizda() {
     setOpenFaq(openFaq === index ? null : index);
   };
 
+  const navItems = [
+    { name: 'Anasayfa', href: '/' },
+    { name: 'Hakkımızda', href: '/hakkimizda' },
+    { name: 'Ekibimiz', href: '/ekibimiz' },
+    { name: 'Sponsorlar', href: '/sponsorlar' },
+    { name: 'Komiteler', href: '/komiteler' },
+    { name: 'İletişim', href: '/iletisim' },
+  ];
+
   const faqData = [
     {
       question: 'Novela İlham Çalıştayı kimler katılabilir?',
@@ -47,15 +56,6 @@ export default function Hakkimizda() {
     },
   ];
 
-  const navItems = [
-    { name: 'Anasayfa', href: '/' },
-    { name: 'Hakkımızda', href: '/hakkimizda' },
-    { name: 'Ekibimiz', href: '/ekibimiz' },
-    { name: 'Sponsorlar', href: '/sponsorlar' },
-    { name: 'Komiteler', href: '/komiteler' },
-    { name: 'İletişim', href: '/iletisim' },
-  ];
-
   return (
     <main
       style={{
@@ -68,191 +68,272 @@ export default function Hakkimizda() {
         width: '100%',
       }}
     >
-      {/* Navbar */}
-      <motion.nav
-        initial={{ y: -50, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.6 }}
+      {/* NAVBAR */}
+{/* Navbar */}
+<motion.nav
+  initial={{ y: -50, opacity: 0 }}
+  animate={{ y: 0, opacity: 1 }}
+  transition={{ duration: 0.6 }}
+  style={{
+    display: 'grid',
+    gridTemplateColumns: '1fr auto 1fr',
+    alignItems: 'center',
+    padding: '15px 30px',
+    backgroundColor: '#0c233c',
+    color: '#d4af37',
+    position: 'sticky',
+    top: 0,
+    zIndex: 1000,
+    borderBottom: '1px solid #d4af37',
+  }}
+>
+  {/* Logo - SOL */}
+  <Link
+    href="/"
+    style={{
+      textDecoration: 'none',
+      display: 'flex',
+      alignItems: 'center',
+      justifySelf: 'start',
+    }}
+  >
+    <div
+      style={{
+        width: '42px',
+        height: '42px',
+        border: '2px solid #d4af37',
+        borderRadius: '50%',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        color: '#d4af37',
+        fontWeight: 'bold',
+        fontSize: '0.9rem',
+      }}
+    >
+      N
+    </div>
+
+    <span
+      style={{
+        marginLeft: '10px',
+        color: '#fff',
+        fontWeight: 'bold',
+        fontSize: '0.95rem',
+        lineHeight: '1.2',
+      }}
+    >
+      NOVELA İLHAM
+      <br />
+      ÇALIŞTAYI
+    </span>
+  </Link>
+
+  {/* Masaüstü Menü - TAM ORTA */}
+  <div
+    className="desktop-nav"
+    style={{
+      display: isMobile ? 'none' : 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      gap: '30px',
+    }}
+  >
+    {navItems.map((item) => (
+      <Link
+        key={item.name}
+        href={item.href}
         style={{
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          padding: isMobile ? '15px 20px' : '15px 50px',
-          backgroundColor: '#0c233c',
-          color: '#d4af37',
-          position: 'sticky',
-          top: 0,
-          zIndex: 1000,
-          borderBottom: '1px solid #d4af37',
+          color:
+            item.name === 'Hakkımızda'
+              ? '#00bfff'
+              : '#fff',
+          textDecoration: 'none',
+          fontSize: '0.95rem',
+          fontWeight: '500',
+          whiteSpace: 'nowrap',
         }}
       >
-        {/* Logo */}
-        <Link
-          href="/"
+        {item.name}
+      </Link>
+    ))}
+  </div>
+
+  {/* SAĞ TARAF */}
+  <div
+    style={{
+      justifySelf: 'end',
+      display: 'flex',
+      alignItems: 'center',
+      gap: '20px',
+    }}
+  >
+    {/* Başvur - Desktop */}
+    {!isMobile && (
+      <Link href="/basvuru" style={{ textDecoration: 'none' }}>
+        <button
           style={{
-            width: isMobile ? '35px' : '40px',
-            height: isMobile ? '35px' : '40px',
-            display: 'block',
+            backgroundColor: '#d4af37',
+            border: 'none',
+            color: '#0c233c',
+            padding: '10px 25px',
+            fontWeight: 'bold',
+            borderRadius: '4px',
+            cursor: 'pointer',
           }}
         >
-          <img
-            src="/logo.png"
-            alt="Logo"
-            style={{
-              width: '100%',
-              height: '100%',
-              objectFit: 'contain',
-            }}
-          />
-        </Link>
+          Başvur
+        </button>
+      </Link>
+    )}
 
-        {/* Desktop Menü */}
-        {!isMobile && (
-          <div
+    {/* Hamburger - Mobile */}
+    {isMobile && (
+      <div
+        onClick={() => setMenuOpen(!menuOpen)}
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'space-between',
+          width: '28px',
+          height: '21px',
+          cursor: 'pointer',
+          zIndex: 1100,
+        }}
+      >
+        <span
+          style={{
+            width: '100%',
+            height: '3px',
+            backgroundColor: '#d4af37',
+            borderRadius: '2px',
+            transition: '0.3s',
+            transform: menuOpen
+              ? 'rotate(45deg) translate(5px, 5px)'
+              : 'none',
+          }}
+        />
+
+        <span
+          style={{
+            width: '100%',
+            height: '3px',
+            backgroundColor: '#d4af37',
+            borderRadius: '2px',
+            opacity: menuOpen ? 0 : 1,
+            transition: '0.3s',
+          }}
+        />
+
+        <span
+          style={{
+            width: '100%',
+            height: '3px',
+            backgroundColor: '#d4af37',
+            borderRadius: '2px',
+            transition: '0.3s',
+            transform: menuOpen
+              ? 'rotate(-45deg) translate(5px, -5px)'
+              : 'none',
+          }}
+        />
+      </div>
+    )}
+  </div>
+</motion.nav>
+
+      {/* MOBİL MENÜ */}
+      <AnimatePresence>
+        {isMobile && menuOpen && (
+          <motion.div
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
             style={{
+              position: 'fixed',
+              top: '74px',
+              left: 0,
+              width: '100%',
+              backgroundColor: '#0c233c',
+              borderBottom: '1px solid #d4af37',
+              padding: '20px 0',
+              zIndex: 999,
               display: 'flex',
+              flexDirection: 'column',
               alignItems: 'center',
-              gap: '50px',
+              boxShadow: '0 10px 20px rgba(0,0,0,0.3)',
             }}
           >
             <ul
               style={{
                 listStyle: 'none',
-                display: 'flex',
-                gap: '50px',
-                margin: 0,
                 padding: 0,
+                margin: 0,
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                gap: '20px',
+                width: '100%',
               }}
             >
               {navItems.map((item) => (
-                <motion.li
+                <li
                   key={item.name}
-                  whileHover={{ scale: 1.1 }}
-                  style={{
-                    cursor: 'pointer',
-                    fontWeight: '500',
-                  }}
+                  onClick={() => setMenuOpen(false)}
                 >
                   <Link
                     href={item.href}
                     style={{
                       color:
-                        item.name === 'Hakkımızda' ? '#00bfff' : '#fff',
+                        item.name === 'Hakkımızda'
+                          ? '#00bfff'
+                          : '#fff',
                       textDecoration: 'none',
-                      transition: 'color .2s',
+                      fontSize: '1.1rem',
+                      fontWeight: '500',
                     }}
                   >
                     {item.name}
                   </Link>
-                </motion.li>
+                </li>
               ))}
-            </ul>
 
-            {/* Başvur Butonu */}
-            <Link
-              href="/basvuru"
-              style={{
-                textDecoration: 'none',
-                backgroundColor: '#d4af37',
-                color: '#0c233c',
-                padding: '10px 18px',
-                borderRadius: '8px',
-                fontWeight: 'bold',
-                whiteSpace: 'nowrap',
-              }}
-            >
-              Başvur
-            </Link>
-          </div>
-        )}
-
-        {/* Mobil Menü Butonu */}
-        {isMobile && (
-          <button
-            onClick={() => setMenuOpen(!menuOpen)}
-            aria-label="Menüyü aç"
-            style={{
-              background: 'transparent',
-              border: 'none',
-              color: '#fff',
-              fontSize: '28px',
-              cursor: 'pointer',
-              padding: 0,
-              lineHeight: 1,
-            }}
-          >
-            ☰
-          </button>
-        )}
-      </motion.nav>
-
-      {/* Mobil Menü */}
-      <AnimatePresence>
-        {isMobile && menuOpen && (
-          <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
-            exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.25 }}
-            style={{
-              position: 'sticky',
-              top: '66px',
-              zIndex: 999,
-              backgroundColor: '#0c233c',
-              borderBottom: '1px solid #d4af37',
-              overflow: 'hidden',
-            }}
-          >
-            <div
-              style={{
-                display: 'flex',
-                flexDirection: 'column',
-                padding: '10px 20px 20px',
-              }}
-            >
-              {navItems.map((item) => (
+              <li
+                style={{ marginTop: '10px' }}
+                onClick={() => setMenuOpen(false)}
+              >
                 <Link
-                  key={item.name}
-                  href={item.href}
-                  onClick={() => setMenuOpen(false)}
+                  href="/basvuru"
                   style={{
-                    color:
-                      item.name === 'Hakkımızda' ? '#00bfff' : '#fff',
                     textDecoration: 'none',
-                    padding: '14px 5px',
-                    borderBottom: '1px solid rgba(255,255,255,0.08)',
-                    fontSize: '1rem',
                   }}
                 >
-                  {item.name}
+                  <button
+                    style={{
+                      backgroundColor: '#d4af37',
+                      border: 'none',
+                      color: '#0c233c',
+                      padding: '10px 30px',
+                      fontWeight: 'bold',
+                      borderRadius: '4px',
+                      cursor: 'pointer',
+                    }}
+                  >
+                    Başvur
+                  </button>
                 </Link>
-              ))}
-
-              <Link
-                href="/basvuru"
-                onClick={() => setMenuOpen(false)}
-                style={{
-                  textDecoration: 'none',
-                  backgroundColor: '#d4af37',
-                  color: '#0c233c',
-                  padding: '12px',
-                  borderRadius: '8px',
-                  fontWeight: 'bold',
-                  textAlign: 'center',
-                  marginTop: '15px',
-                }}
-              >
-                Başvur
-              </Link>
-            </div>
+              </li>
+            </ul>
           </motion.div>
         )}
       </AnimatePresence>
 
-      {/* Hero / Üst Başlık */}
+      {/* HERO */}
       <header
         style={{
-          padding: isMobile ? '55px 20px 45px' : '80px 50px 60px',
+          padding: isMobile
+            ? '55px 20px 45px'
+            : '80px 50px 60px',
           textAlign: 'center',
           backgroundColor: '#0a1d32',
         }}
@@ -293,8 +374,8 @@ export default function Hakkimizda() {
               lineHeight: '1.6',
             }}
           >
-            Fikirden ilham alan, gelenekleri yıkan ve geleceği ortak akılla
-            kurgulayan bir çalıştay kültürü.
+            Fikirden ilham alan, gelenekleri yıkan ve geleceği
+            ortak akılla kurgulayan bir çalıştay kültürü.
           </p>
         </motion.div>
       </header>
@@ -306,7 +387,7 @@ export default function Hakkimizda() {
         viewport={{ once: true }}
         transition={{ duration: 0.6 }}
         style={{
-          padding: isMobile ? '60px 20px' : '100px 100px',
+          padding: isMobile ? '60px 20px' : '100px',
           backgroundColor: '#f4f7f9',
           color: '#0c233c',
           textAlign: 'center',
@@ -346,19 +427,20 @@ export default function Hakkimizda() {
           }}
         >
           <p style={{ marginBottom: '20px' }}>
-            Novela, kökenini Latince novus (yeni) kelimesinden alan ve
-            İtalyancaya geçen bir sözcüktür. Edebiyatta roman ile kısa hikâye
-            arasında yer alan anlatı türünü ifade etse de, özünde
-            &quot;yeni bir hikâye&quot; ve &quot;yeni bir başlangıç&quot;
-            anlamını taşır.
+            Novela, kökenini Latince novus (yeni) kelimesinden
+            alan ve İtalyancaya geçen bir sözcüktür. Edebiyatta
+            roman ile kısa hikâye arasında yer alan anlatı türünü
+            ifade etse de, özünde &quot;yeni bir hikâye&quot; ve
+            &quot;yeni bir başlangıç&quot; anlamını taşır.
           </p>
 
           <p>
-            Novela İlham Çalıştayı için bu isim, yalnızca bir etkinliği değil;
-            her katılımcının kendini keşfettiği, yeni bakış açıları kazandığı
-            ve kendi hikâyesine ilham dolu bir sayfa eklediği bir yolculuğu
-            temsil etmektedir. Bu nedenle Novela, yeniliği, gelişimi, ilhamı
-            ve her bireyin kendi potansiyelini ortaya çıkarma cesaretini
+            Novela İlham Çalıştayı için bu isim, yalnızca bir
+            etkinliği değil; her katılımcının kendini keşfettiği,
+            yeni bakış açıları kazandığı ve kendi hikâyesine ilham
+            dolu bir sayfa eklediği bir yolculuğu temsil etmektedir.
+            Bu nedenle Novela, yeniliği, gelişimi, ilhamı ve her
+            bireyin kendi potansiyelini ortaya çıkarma cesaretini
             simgeleyen güçlü bir isim olarak seçilmiştir.
           </p>
         </div>
@@ -371,7 +453,7 @@ export default function Hakkimizda() {
         viewport={{ once: true }}
         transition={{ duration: 0.6 }}
         style={{
-          padding: isMobile ? '60px 20px' : '100px 100px',
+          padding: isMobile ? '60px 20px' : '100px',
           backgroundColor: '#0c233c',
           color: '#fff',
         }}
@@ -470,8 +552,8 @@ export default function Hakkimizda() {
         viewport={{ once: true }}
         transition={{ duration: 0.6 }}
         style={{
-          padding: isMobile ? '60px 20px' : '100px 100px',
-          backgroundColor: '#ffffff',
+          padding: isMobile ? '60px 20px' : '100px',
+          backgroundColor: '#fff',
           color: '#0c233c',
         }}
       >
@@ -569,7 +651,7 @@ export default function Hakkimizda() {
         viewport={{ once: true }}
         transition={{ duration: 0.6 }}
         style={{
-          padding: isMobile ? '60px 15px' : '100px 100px',
+          padding: isMobile ? '60px 15px' : '100px',
           backgroundColor: '#0a1d32',
           color: '#fff',
         }}
@@ -613,38 +695,10 @@ export default function Hakkimizda() {
             margin: '0 auto',
           }}
         >
-          {/* 1. Gün */}
-          <div
-            style={{
-              backgroundColor: 'rgba(12, 35, 60, 0.8)',
-              border: '1px solid rgba(212, 175, 55, 0.4)',
-              borderRadius: '15px',
-              padding: isMobile ? '25px 18px' : '40px 30px',
-            }}
-          >
-            <h3
-              style={{
-                fontSize: '2rem',
-                color: '#d4af37',
-                marginBottom: '30px',
-                textAlign: 'center',
-                fontWeight: 'bold',
-                borderBottom:
-                  '1px solid rgba(212, 175, 55, 0.2)',
-                paddingBottom: '15px',
-              }}
-            >
-              1. Gün
-            </h3>
-
-            <div
-              style={{
-                display: 'flex',
-                flexDirection: 'column',
-                gap: '15px',
-              }}
-            >
-              {[
+          {[
+            {
+              day: '1. Gün',
+              items: [
                 ['08.00 - 09.00', 'Kahvaltı ve Kayıt'],
                 ['09.00 - 10.00', 'Açılış Konferansı'],
                 ['10.00 - 10.20', 'Ara'],
@@ -657,76 +711,11 @@ export default function Hakkimizda() {
                 ['15.40 - 16.40', '4. Oturum'],
                 ['16.40 - 17.00', 'Ara'],
                 ['17.00 - 18.00', '5. Oturum'],
-              ].map(([time, title], index) => (
-                <div
-                  key={index}
-                  style={{
-                    display: 'flex',
-                    justifyContent: 'space-between',
-                    alignItems: 'center',
-                    gap: '10px',
-                    borderBottom:
-                      '1px solid rgba(255, 255, 255, 0.05)',
-                    paddingBottom: '10px',
-                  }}
-                >
-                  <span
-                    style={{
-                      color: '#d4af37',
-                      fontWeight: '600',
-                      fontSize: isMobile ? '0.8rem' : '0.95rem',
-                      whiteSpace: 'nowrap',
-                    }}
-                  >
-                    {time}
-                  </span>
-
-                  <span
-                    style={{
-                      color: '#fff',
-                      fontSize: isMobile ? '0.85rem' : '0.95rem',
-                      textAlign: 'right',
-                    }}
-                  >
-                    {title}
-                  </span>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* 2. Gün */}
-          <div
-            style={{
-              backgroundColor: 'rgba(12, 35, 60, 0.8)',
-              border: '1px solid rgba(212, 175, 55, 0.4)',
-              borderRadius: '15px',
-              padding: isMobile ? '25px 18px' : '40px 30px',
-            }}
-          >
-            <h3
-              style={{
-                fontSize: '2rem',
-                color: '#d4af37',
-                marginBottom: '30px',
-                textAlign: 'center',
-                fontWeight: 'bold',
-                borderBottom:
-                  '1px solid rgba(212, 175, 55, 0.2)',
-                paddingBottom: '15px',
-              }}
-            >
-              2. Gün
-            </h3>
-
-            <div
-              style={{
-                display: 'flex',
-                flexDirection: 'column',
-                gap: '15px',
-              }}
-            >
-              {[
+              ],
+            },
+            {
+              day: '2. Gün',
+              items: [
                 ['08.00 - 09.00', 'Kahvaltı'],
                 ['09.00 - 10.00', '6. Oturum'],
                 ['10.00 - 10.20', 'Ara'],
@@ -738,54 +727,93 @@ export default function Hakkimizda() {
                 ['15.10 - 15.30', 'Ara'],
                 ['15.30 - 16.30', '10. Oturum'],
                 ['16.30 - 18.30', 'Kapanış'],
-              ].map(([time, title], index) => (
-                <div
-                  key={index}
-                  style={{
-                    display: 'flex',
-                    justifyContent: 'space-between',
-                    alignItems: 'center',
-                    gap: '10px',
-                    borderBottom:
-                      '1px solid rgba(255, 255, 255, 0.05)',
-                    paddingBottom: '10px',
-                  }}
-                >
-                  <span
-                    style={{
-                      color: '#d4af37',
-                      fontWeight: '600',
-                      fontSize: isMobile ? '0.8rem' : '0.95rem',
-                      whiteSpace: 'nowrap',
-                    }}
-                  >
-                    {time}
-                  </span>
+              ],
+            },
+          ].map((day) => (
+            <div
+              key={day.day}
+              style={{
+                backgroundColor: 'rgba(12, 35, 60, 0.8)',
+                border: '1px solid rgba(212, 175, 55, 0.4)',
+                borderRadius: '15px',
+                padding: isMobile ? '25px 18px' : '40px 30px',
+              }}
+            >
+              <h3
+                style={{
+                  fontSize: '2rem',
+                  color: '#d4af37',
+                  marginBottom: '30px',
+                  textAlign: 'center',
+                  fontWeight: 'bold',
+                  borderBottom:
+                    '1px solid rgba(212, 175, 55, 0.2)',
+                  paddingBottom: '15px',
+                }}
+              >
+                {day.day}
+              </h3>
 
-                  <span
+              <div
+                style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: '15px',
+                }}
+              >
+                {day.items.map(([time, title], index) => (
+                  <div
+                    key={index}
                     style={{
-                      color: '#fff',
-                      fontSize: isMobile ? '0.85rem' : '0.95rem',
-                      textAlign: 'right',
+                      display: 'flex',
+                      justifyContent: 'space-between',
+                      alignItems: 'center',
+                      gap: '10px',
+                      borderBottom:
+                        '1px solid rgba(255, 255, 255, 0.05)',
+                      paddingBottom: '10px',
                     }}
                   >
-                    {title}
-                  </span>
-                </div>
-              ))}
+                    <span
+                      style={{
+                        color: '#d4af37',
+                        fontWeight: '600',
+                        fontSize: isMobile
+                          ? '0.8rem'
+                          : '0.95rem',
+                        whiteSpace: 'nowrap',
+                      }}
+                    >
+                      {time}
+                    </span>
+
+                    <span
+                      style={{
+                        color: '#fff',
+                        fontSize: isMobile
+                          ? '0.85rem'
+                          : '0.95rem',
+                        textAlign: 'right',
+                      }}
+                    >
+                      {title}
+                    </span>
+                  </div>
+                ))}
+              </div>
             </div>
-          </div>
+          ))}
         </div>
       </motion.section>
 
-      {/* 5. BÖLÜM - FAQ */}
+      {/* FAQ */}
       <motion.section
         initial={{ opacity: 0, y: 40 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.6 }}
         style={{
-          padding: isMobile ? '60px 15px' : '100px 100px',
+          padding: isMobile ? '60px 15px' : '100px',
           backgroundColor: '#f4f7f9',
           color: '#0c233c',
         }}
@@ -831,7 +859,7 @@ export default function Hakkimizda() {
             <div
               key={index}
               style={{
-                backgroundColor: '#ffffff',
+                backgroundColor: '#fff',
                 border: '1px solid #e0e0e0',
                 borderRadius: '12px',
                 overflow: 'hidden',
@@ -843,7 +871,9 @@ export default function Hakkimizda() {
                 style={{
                   width: '100%',
                   boxSizing: 'border-box',
-                  padding: isMobile ? '18px 16px' : '20px 25px',
+                  padding: isMobile
+                    ? '18px 16px'
+                    : '20px 25px',
                   backgroundColor: 'transparent',
                   border: 'none',
                   display: 'flex',
@@ -886,7 +916,9 @@ export default function Hakkimizda() {
                           : '0 25px 25px',
                         color: '#555',
                         lineHeight: '1.6',
-                        fontSize: isMobile ? '0.9rem' : '1rem',
+                        fontSize: isMobile
+                          ? '0.9rem'
+                          : '1rem',
                       }}
                     >
                       {faq.answer}
@@ -899,12 +931,14 @@ export default function Hakkimizda() {
         </div>
       </motion.section>
 
-      {/* Footer */}
+      {/* FOOTER */}
       <footer
         style={{
           backgroundColor: '#061826',
           color: '#fff',
-          padding: isMobile ? '50px 20px 25px' : '70px 80px 30px',
+          padding: isMobile
+            ? '50px 20px 25px'
+            : '70px 80px 30px',
           borderTop: '1px solid #1a365d',
         }}
       >
@@ -970,8 +1004,9 @@ export default function Hakkimizda() {
                 lineHeight: '1.6',
               }}
             >
-              Genç düşünürler için eleştirel tartışma, kavramsal düşünme ve
-              akademik gelişimi merkeze alan bir düşünce platformu.
+              Genç düşünürler için eleştirel tartışma, kavramsal
+              düşünme ve akademik gelişimi merkeze alan bir düşünce
+              platformu.
             </p>
           </div>
 
@@ -1052,20 +1087,7 @@ export default function Hakkimizda() {
                   fontSize: '0.95rem',
                 }}
               >
-                <svg
-                  width="18"
-                  height="18"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="#d4af37"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  style={{ marginTop: '3px', flexShrink: 0 }}
-                >
-                  <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
-                  <circle cx="12" cy="10" r="3"></circle>
-                </svg>
+                <span style={{ color: '#d4af37' }}>⌖</span>
 
                 <span>
                   Mekan Bilgisi Paylaşıldığında Duyurulacaktır.
@@ -1081,20 +1103,7 @@ export default function Hakkimizda() {
                   fontSize: '0.95rem',
                 }}
               >
-                <svg
-                  width="18"
-                  height="18"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="#d4af37"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  style={{ marginTop: '3px', flexShrink: 0 }}
-                >
-                  <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
-                  <polyline points="22,6 12,13 2,6"></polyline>
-                </svg>
+                <span style={{ color: '#d4af37' }}>✉</span>
 
                 <span style={{ wordBreak: 'break-all' }}>
                   novalecal27@gmail.com
@@ -1116,71 +1125,20 @@ export default function Hakkimizda() {
               Sosyal Medya
             </h4>
 
-            <div
+            <a
+              href="#"
               style={{
                 display: 'flex',
-                flexDirection: 'column',
-                gap: '12px',
+                alignItems: 'center',
+                gap: '10px',
+                color: '#b0b0b0',
+                textDecoration: 'none',
+                fontSize: '0.95rem',
               }}
             >
-              <a
-                href="#"
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '10px',
-                  color: '#b0b0b0',
-                  textDecoration: 'none',
-                  fontSize: '0.95rem',
-                }}
-              >
-                <svg
-                  width="16"
-                  height="16"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="url(#social-ig-gradient)"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <defs>
-                    <linearGradient
-                      id="social-ig-gradient"
-                      x1="0%"
-                      y1="100%"
-                      x2="100%"
-                      y2="0%"
-                    >
-                      <stop offset="0%" stopColor="#fdf497" />
-                      <stop offset="45%" stopColor="#fd5949" />
-                      <stop offset="60%" stopColor="#d6249f" />
-                      <stop offset="90%" stopColor="#285AEB" />
-                    </linearGradient>
-                  </defs>
-
-                  <rect
-                    x="2"
-                    y="2"
-                    width="20"
-                    height="20"
-                    rx="5"
-                    ry="5"
-                  ></rect>
-
-                  <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
-
-                  <line
-                    x1="17.5"
-                    y1="6.5"
-                    x2="17.51"
-                    y2="6.5"
-                  ></line>
-                </svg>
-
-                <span>@novelailhamcalistayi</span>
-              </a>
-            </div>
+              <span style={{ color: '#d4af37' }}>◎</span>
+              <span>@novelailhamcalistayi</span>
+            </a>
           </div>
         </div>
 
@@ -1195,7 +1153,7 @@ export default function Hakkimizda() {
             flexDirection: isMobile ? 'column' : 'row',
             flexWrap: 'wrap',
             gap: '15px',
-            color: '#888888',
+            color: '#888',
             fontSize: '0.85rem',
           }}
         >
@@ -1225,64 +1183,12 @@ export default function Hakkimizda() {
               target="_blank"
               rel="noopener noreferrer"
               style={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: '6px',
                 textDecoration: 'none',
+                color: '#ffcc00',
+                fontWeight: '600',
               }}
             >
-              <svg
-                width="20"
-                height="20"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="url(#footer-ig-gradient)"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <defs>
-                  <linearGradient
-                    id="footer-ig-gradient"
-                    x1="0%"
-                    y1="100%"
-                    x2="100%"
-                    y2="0%"
-                  >
-                    <stop offset="0%" stopColor="#fdf497" />
-                    <stop offset="45%" stopColor="#fd5949" />
-                    <stop offset="60%" stopColor="#d6249f" />
-                    <stop offset="90%" stopColor="#285AEB" />
-                  </linearGradient>
-                </defs>
-
-                <rect
-                  x="2"
-                  y="2"
-                  width="20"
-                  height="20"
-                  rx="5"
-                  ry="5"
-                ></rect>
-
-                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
-
-                <line
-                  x1="17.5"
-                  y1="6.5"
-                  x2="17.51"
-                  y2="6.5"
-                ></line>
-              </svg>
-
-              <span
-                style={{
-                  color: '#ffcc00',
-                  fontWeight: '600',
-                }}
-              >
-                ccenkyaman
-              </span>
+              @ccenkyaman
             </a>
           </div>
         </div>
